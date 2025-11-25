@@ -1,8 +1,5 @@
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
-@import "tw-animate-css";
-
 /* This makes theme switcher work */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
