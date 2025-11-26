@@ -4,11 +4,16 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: `
       default-src 'self';
-      img-src 'self' data: https:;
-      script-src 'self' 'unsafe-inline' https:;
+      script-src 'self' 'unsafe-eval' 'unsafe-inline';
       style-src 'self' 'unsafe-inline';
-      font-src 'self' https: data:;
-      connect-src 'self' https:;
+      img-src 'self' blob: data:;
+      font-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'self';
+      frame-src 'self' https://www.google.com https://maps.googleapis.com;
+      upgrade-insecure-requests;
     `
       .replace(/\s{2,}/g, ' ')
       .trim(),

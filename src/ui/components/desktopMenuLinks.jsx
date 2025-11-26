@@ -2,52 +2,50 @@ import Link from 'next/link';
 
 export default function DesktopMenuLinks(props) {
   return (
-    <div
-      className={`${
-        !props.fromFooter
-          ? 'hidden md:block'
-          : 'block col-span-4 md:col-start-1 col-start-4'
-      }`}>
-      <div className={`flex flex-${props.flexDirection} space-x-4`}>
+    <div className={`${props.fromFooter ? 'block' : 'hidden md:block'}`}>
+      <div
+        className={`flex flex-${props.flexDirection} text-secondary ${
+          props.fromFooter ? '' : 'gap-4'
+        }`}>
         <p
-          className={`text-ctext dark:text-ctext-light font-bold pb-4 text-xl ${
+          className={`font-bold pb-4 text-lg tracking-wider uppercase ${
             props.fromFooter ? 'block' : 'hidden'
           }`}>
-          Quick Links
+          Navigazione
         </p>
         <Link
           href="/"
-          className={`px-3 py-2 rounded-md font-medium transition-colors text-ctext dark:text-ctext-light ${
+          className={`rounded-md font-medium transition-colors ${
             props.fromFooter
-              ? 'hover:underline underline-offset-4'
-              : 'dark:hover:bg-secondary-light-100 hover:bg-secondary-100'
+              ? 'hover:underline underline-offset-4 text-muted py-1'
+              : 'hover:bg-secondary-100 px-3 text-primary py-2'
           }`}>
           Home
         </Link>
         <Link
           href="/about"
-          className={`px-3 py-2 rounded-md font-medium transition-colors text-ctext dark:text-ctext-light ${
+          className={`rounded-md font-medium transition-colors ${
             props.fromFooter
-              ? 'hover:underline underline-offset-4'
-              : 'dark:hover:bg-secondary-light-100 hover:bg-secondary-100'
+              ? 'hover:underline underline-offset-4 text-muted py-1'
+              : 'hover:bg-secondary-100 px-3 text-primary py-2'
           }`}>
           About
         </Link>
         <Link
           href="/services"
-          className={`px-3 py-2 rounded-md font-medium transition-colors text-ctext dark:text-ctext-light ${
+          className={`rounded-md font-medium transition-colors ${
             props.fromFooter
-              ? 'hover:underline underline-offset-4'
-              : 'dark:hover:bg-secondary-light-100 hover:bg-secondary-100'
+              ? 'hover:underline underline-offset-4 text-muted py-1'
+              : 'hover:bg-secondary-100 px-3 text-primary py-2'
           }`}>
           Services
         </Link>
         <Link
           href="/contact"
-          className={`px-3 py-2 rounded-md font-medium transition-colors text-ctext dark:text-ctext-light ${
+          className={`rounded-md font-medium transition-colors ${
             props.fromFooter
-              ? 'hover:underline underline-offset-4'
-              : 'dark:hover:bg-secondary-light-100 hover:bg-secondary-100'
+              ? 'hover:underline underline-offset-4 text-muted py-1'
+              : 'hover:bg-secondary-100 px-3 text-primary py-2'
           }`}>
           Contact
         </Link>
