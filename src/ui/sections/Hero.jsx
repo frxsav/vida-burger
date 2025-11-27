@@ -32,7 +32,7 @@ export default function Hero() {
     );
   });
   return (
-    <section className="min-h-screen relative flex flex-col items-center justify-center gap-8 md:gap-16 font-display">
+    <section className="min-h-screen relative flex flex-col items-center justify-center gap-8 md:gap-16 font-display z-40">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-foreground/75 z-40"></div>
         <Image
