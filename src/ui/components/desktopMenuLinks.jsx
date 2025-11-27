@@ -1,55 +1,23 @@
 import Link from 'next/link';
+import { navLinks } from '@/lib/data';
 
 export default function DesktopMenuLinks(props) {
   return (
-    <div className={`${props.fromFooter ? 'block' : 'hidden md:block'}`}>
-      <div
-        className={`flex flex-${props.flexDirection} text-secondary ${
-          props.fromFooter ? '' : 'gap-4'
-        }`}>
-        <p
-          className={`font-bold pb-4 text-lg tracking-wider uppercase ${
-            props.fromFooter ? 'block' : 'hidden'
-          }`}>
-          Navigazione
-        </p>
+    <nav className="flex-row text-secondary gap-4 items-center hidden md:flex w-full justify-end">
+      {navLinks.map((link) => (
         <Link
-          href="/"
-          className={`rounded-md font-medium transition-colors ${
-            props.fromFooter
-              ? 'hover:underline underline-offset-4 text-muted py-1'
-              : 'hover:bg-secondary-100 px-3 text-primary py-2'
-          }`}>
-          Home
+          key={link.name}
+          href={link.href}
+          className={`rounded-md font-medium transition-colors uppercase duration-300 hover:text-cta px-3 py-2
+            ${props.scrolled ? 'text-primary' : 'text-secondary'}`}>
+          {link.name}
         </Link>
-        <Link
-          href="/about"
-          className={`rounded-md font-medium transition-colors ${
-            props.fromFooter
-              ? 'hover:underline underline-offset-4 text-muted py-1'
-              : 'hover:bg-secondary-100 px-3 text-primary py-2'
-          }`}>
-          About
-        </Link>
-        <Link
-          href="/services"
-          className={`rounded-md font-medium transition-colors ${
-            props.fromFooter
-              ? 'hover:underline underline-offset-4 text-muted py-1'
-              : 'hover:bg-secondary-100 px-3 text-primary py-2'
-          }`}>
-          Services
-        </Link>
-        <Link
-          href="/contact"
-          className={`rounded-md font-medium transition-colors ${
-            props.fromFooter
-              ? 'hover:underline underline-offset-4 text-muted py-1'
-              : 'hover:bg-secondary-100 px-3 text-primary py-2'
-          }`}>
-          Contact
-        </Link>
-      </div>
-    </div>
+      ))}
+      <Link
+        href="#"
+        className="uppercase bg-cta text-secondary py-3 px-6 font-medium rounded-full self-center transition-all duration-300 hover:bg-cta-hover hover:shadow-cta/50 hover:shadow-md">
+        Vedi il menu
+      </Link>
+    </nav>
   );
 }

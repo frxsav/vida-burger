@@ -5,11 +5,11 @@ import { BurgerMenu, DesktopMenuLinks, MobileMenuLinks, Logo } from '..';
 
 export default function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
-      setHasScrolled(window.scrollY > 0 ? true : false);
+      setScrolled(window.scrollY > 0 ? true : false);
     });
   });
 
@@ -18,23 +18,23 @@ export default function Navbar(props) {
   };
 
   return (
-    <nav>
-      <div className="mx-auto mt-8 rounded-3xl px-8 w-[80%] backdrop-blur-sm bg-secondary-light/20">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Logo />
-          {/* Desktop Menu */}
-          <DesktopMenuLinks />
-          {/* Theme Toggle & Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            {/* Mobile menu button */}
-            <BurgerMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          </div>
-        </div>
-
+    <div
+      className={`fixed z-50 w-full transition-all duration-300 px-8 md:px-[10%] ${
+        scrolled ? 'bg-secondary py-2 shadow-md' : 'bg-transparent py-4'
+      }`}>
+      <div className="w-full flex flex-row justify-between items-center h-16 font-roboto">
+        {/* Logo */}
+        <Logo />
+        {/* Desktop Menu */}
+        <DesktopMenuLinks scrolled={scrolled} />
         {/* Mobile Menu */}
-        {isMenuOpen && <MobileMenuLinks setIsMenuOpen={setIsMenuOpen} />}
+        <MobileMenuLinks
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+          scrolled={scrolled}
+          setIsMenuOpen={setIsMenuOpen}
+        />
       </div>
-    </nav>
+    </div>
   );
 }

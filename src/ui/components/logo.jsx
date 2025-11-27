@@ -1,11 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
-export default function Logo() {
+export default function Logo(props) {
   return (
-    <div>
-      <Link href="/">
-        <span className="text-3xl font-bold text-cta">Logo</span>
-      </Link>
-    </div>
+    <Link href="/" className={`${props.fromFooter ? 'z-40' : 'z-50'}`}>
+      <Image src="/images/logo.png" width={100} height={100} alt="Logo" />
+    </Link>
   );
 }
