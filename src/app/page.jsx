@@ -1,4 +1,13 @@
-import { Hero, Header, Footer, Info, About, Menu } from '@/ui';
+import {
+  Hero,
+  Header,
+  Footer,
+  Info,
+  About,
+  Menu,
+  Galleria,
+  Reviews,
+} from '@/ui';
 
 export default function Home() {
   return (
@@ -9,6 +18,8 @@ export default function Home() {
         <Info />
         <About />
         <Menu />
+        <Galleria />
+        <Reviews />
       </main>
       <Footer />
     </div>
