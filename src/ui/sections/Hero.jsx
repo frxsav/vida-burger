@@ -36,7 +36,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-foreground/75 z-40"></div>
         <Image
-          src="/images/burger-500.webp"
+          src="/images/burger.webp"
           alt="burger hero"
           fill
           className="object-cover z-30"
