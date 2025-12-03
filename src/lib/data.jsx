@@ -60,31 +60,37 @@ export const images = [
 
 export const reviewsData = [
   {
+    id: 0,
     name: 'Marco Rossi',
     text: 'Il miglior hamburger che abbia mai mangiato a Portici! La carne è succosa e il pane perfetto.',
     rating: 5,
   },
   {
+    id: 1,
     name: 'Giulia Bianchi',
     text: 'Atmosfera fantastica e personale super gentile. Le patatine fritte sono una droga!',
     rating: 5,
   },
   {
+    id: 2,
     name: 'Luca Esposito',
     text: 'Qualità prezzo imbattibile. Ci torno ogni sabato con gli amici. Consigliatissimo!',
     rating: 4,
   },
   {
+    id: 3,
     name: 'Anna Verdi',
     text: "Locale molto curato, moderno e pulito. L'hamburger Vida è un'esperienza mistica.",
     rating: 5,
   },
   {
+    id: 4,
     name: 'Antonio De Rosa',
     text: 'Finalmente un posto dove si mangia bene e si sta bene. Bravi ragazzi!',
     rating: 5,
   },
   {
+    id: 5,
     name: 'Francesca Neri',
     text: 'Servizio veloce anche di sabato sera. Panini enormi e gustosi.',
     rating: 4,

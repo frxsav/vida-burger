@@ -7,9 +7,9 @@ import {
 
 export default function Reviews() {
   return (
-    <section className="bg-secondary py-16 px-[10%]">
+    <section className="bg-secondary pt-16 pb-32 px-[10%]">
       <div className="text-center">
-        <h2 className="font-display text-4xl md:text-5xl text-primary uppercase pb-16">
+        <h2 className="font-display font-bold tracking-wide text-4xl md:text-5xl text-primary uppercase pb-16">
           Dicono di noi
         </h2>
       </div>

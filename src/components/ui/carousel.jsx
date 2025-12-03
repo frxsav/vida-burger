@@ -1,11 +1,9 @@
 'use client';
 import * as React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FaStar, FaQuoteRight } from 'react-icons/fa';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 const CarouselContext = React.createContext(null);
 
@@ -39,17 +37,23 @@ const Carousel = React.forwardRef(
       },
       plugins
     );
-    const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-    const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
 
     const onSelect = React.useCallback((api) => {
       if (!api) {
         return;
       }
-
-      setCanScrollPrev(api.canScrollPrev());
-      setCanScrollNext(api.canScrollNext());
+      console.info(api.selectedScrollSnap());
+      setSelectedIndex(api.selectedScrollSnap());
     }, []);
+
+    const onDotButtonClick = React.useCallback(
+      (index) => {
+        if (!api) return;
+        api.scrollTo(index);
+      },
+      [api]
+    );
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev();
@@ -104,8 +108,8 @@ const Carousel = React.forwardRef(
             orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
           scrollPrev,
           scrollNext,
-          canScrollPrev,
-          canScrollNext,
+          onDotButtonClick,
+          selectedIndex,
         }}>
         <div
           ref={ref}
@@ -123,7 +127,8 @@ const Carousel = React.forwardRef(
 Carousel.displayName = 'Carousel';
 
 const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel();
+  const { carouselRef, orientation, onDotButtonClick, selectedIndex } =
+    useCarousel();
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
@@ -136,32 +141,46 @@ const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
         )}
         {...props}
       />
+      <div className="flex w-[30%] mx-auto gap-2 justify-center pt-4">
+        {/* Prendo gli elementi dispari delle reviews per una navigazione coi punti migliore */}
+        {props.children
+          .filter((_, index) => index % 2 === 0)
+          .map((item) => (
+            <div
+              key={item.key}
+              onClick={() => onDotButtonClick(item.key)}
+              className={`cursor-pointer bg-cta py-2 rounded-full text-secondary flex items-center justify-center transition-all duration-300 ${
+                selectedIndex == item.key ? 'px-4' : 'px-2'
+              }`}
+            />
+          ))}
+      </div>
     </div>
   );
 });
 CarouselContent.displayName = 'CarouselContent';
 
 const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel();
-
   return (
     <div
       ref={ref}
       role="group"
       aria-roledescription="slide"
       className={cn(
-        'relative flex flex-col justify-between gap-4 basis-1/3 bg-primary text-secondary p-8 shrink-0 rounded-2xl',
+        'relative flex flex-col justify-between gap-4 basis-1/3 bg-primary shadow-xl text-secondary p-8 shrink-0 rounded-2xl hover:cursor-grab select-none',
         className
       )}
       {...props}>
-      <div className='flex flex-col gap-4'>
+      <div className="flex flex-col gap-4">
         <div className="flex gap-2">
           {Array.from({ length: props.review.rating }, (_, index) => (
             <FaStar key={index} className="text-cta text-2xl" />
           ))}
         </div>
         <FaQuoteRight className="absolute top-5 right-5 text-5xl text-secondary/20" />
-        <p className="italic w-[90%] text-muted">{props.review.text}</p>
+        <p className="italic w-[90%] text-muted min-h-[100px]">
+          {props.review.text}
+        </p>
       </div>
 
       <h5 className="uppercase font-display border-t-1 border-secondary/20 pt-2 text-2xl tracking-wider">
@@ -171,65 +190,4 @@ const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
   );
 });
 CarouselItem.displayName = 'CarouselItem';
-
-const CarouselPrevious = React.forwardRef(
-  ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-    const { orientation, scrollPrev, canScrollPrev } = useCarousel();
-
-    return (
-      <Button
-        ref={ref}
-        variant={variant}
-        size={size}
-        className={cn(
-          'absolute  h-8 w-8 rounded-full',
-          orientation === 'horizontal'
-            ? '-left-12 top-1/2 -translate-y-1/2'
-            : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
-          className
-        )}
-        disabled={!canScrollPrev}
-        onClick={scrollPrev}
-        {...props}>
-        <ArrowLeft className="h-4 w-4" />
-        <span className="sr-only">Previous slide</span>
-      </Button>
-    );
-  }
-);
-CarouselPrevious.displayName = 'CarouselPrevious';
-
-const CarouselNext = React.forwardRef(
-  ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-    const { orientation, scrollNext, canScrollNext } = useCarousel();
-
-    return (
-      <Button
-        ref={ref}
-        variant={variant}
-        size={size}
-        className={cn(
-          'absolute h-8 w-8 rounded-full',
-          orientation === 'horizontal'
-            ? '-right-12 top-1/2 -translate-y-1/2'
-            : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
-          className
-        )}
-        disabled={!canScrollNext}
-        onClick={scrollNext}
-        {...props}>
-        <ArrowRight className="h-4 w-4" />
-        <span className="sr-only">Next slide</span>
-      </Button>
-    );
-  }
-);
-CarouselNext.displayName = 'CarouselNext';
-
-export {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-};
+export { Carousel, CarouselContent, CarouselItem };
